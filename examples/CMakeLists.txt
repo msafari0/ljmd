@@ -23,10 +23,6 @@ COMMAND ../ljmd-serial.x < argon_108.inp
 COMMAND head -10 argon_108.dat > a.dat
 COMMAND head -10 ../reference/argon_108.dat > b.dat
 COMMAND cmp a.dat b.dat || exit 1
-# COMMAND ../ljmd-serial.x < argon_2916.inp
-# COMMAND head -10 argon_2916.dat > a.dat
-# COMMAND head -10 ../reference/argon_2916.dat > b.dat
-# COMMAND cmp a.dat b.dat || exit 1
 COMMAND rm -f a.dat b.dat
 )
 
