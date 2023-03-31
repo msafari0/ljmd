@@ -1,8 +1,6 @@
 #ifndef MDLIB_H
 #define MDLIB_H
 
-#include <sys/time.h>
-
 /* generic file- or pathname buffer length */
 #define BLEN 200
 
@@ -24,6 +22,8 @@ typedef struct _mdsys mdsys_t;
 
 // compute forces
 void force(mdsys_t *sys);
+// velocity verlet
+void velverlet(mdsys_t *sys);
 // set vector elements to zero
 void azzero(double *d, const int n);
 // walltime
