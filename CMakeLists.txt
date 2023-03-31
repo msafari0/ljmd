@@ -14,8 +14,14 @@ add_executable(ljmd-serial.x src/ljmd.c)
 target_compile_options(ljmd-serial.x PRIVATE -Wall -g -O3 -ffast-math -fomit-frame-pointer -DLJMD_VERSION=1.0)
 # include directory for header files
 include_directories(include)
+
+# add library for force computation
+add_library(mdlib src/utilities.c src/forces.c)
+target_link_libraries(mdlib m)
+
 # link libraries
 target_link_libraries(ljmd-serial.x m)
+target_link_libraries(ljmd-serial.x mdlib)
 
 
 # add subdirectories
