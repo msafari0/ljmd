@@ -25,6 +25,8 @@ typedef struct _mdsys mdsys_t;
 
 // compute forces
 void force(mdsys_t *sys);
+// compute kinetic energy
+void ekin(mdsys_t *sys);
 // velocity verlet
 void velverlet(mdsys_t *sys);
 // set vector elements to zero
