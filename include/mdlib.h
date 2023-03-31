@@ -1,6 +1,9 @@
 #ifndef MDLIB_H
 #define MDLIB_H
 
+// for input and output declarations
+#include <stdio.h>
+
 /* generic file- or pathname buffer length */
 #define BLEN 200
 
@@ -28,5 +31,9 @@ void velverlet(mdsys_t *sys);
 void azzero(double *d, const int n);
 // walltime
 double wallclock();
+// input function
+int get_a_line(FILE *fp, char *buf);
+// output function
+void output(mdsys_t *sys, FILE *erg, FILE *traj);
 
 #endif
