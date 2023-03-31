@@ -1,3 +1,7 @@
+# build directory
+build/
+cbuild.sh
+
 # Prerequisites
 *.d
 
