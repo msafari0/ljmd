@@ -37,15 +37,6 @@ static int get_a_line(FILE *fp, char *buf)
     return 0;
 }
 
-/* helper function: get current time in seconds since epoch */
-
-static double wallclock()
-{
-        struct timeval t;
-        gettimeofday(&t,0);
-        return ((double) t.tv_sec) + 1.0e-6*((double) t.tv_usec);
-}
-
 
 
 /* compute kinetic energy */

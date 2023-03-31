@@ -1,6 +1,8 @@
 #ifndef MDLIB_H
 #define MDLIB_H
 
+#include <sys/time.h>
+
 /* generic file- or pathname buffer length */
 #define BLEN 200
 
@@ -24,5 +26,7 @@ typedef struct _mdsys mdsys_t;
 void force(mdsys_t *sys);
 // set vector elements to zero
 void azzero(double *d, const int n);
+// walltime
+double wallclock();
 
 #endif
