@@ -18,7 +18,7 @@ void force(mdsys_t *sys)
     double rx,ry,rz;
     int i,j;
     //new variables for the optimization
-    double c12,c6,rcsq, rsq, rinv, rinv2, rinv6, rinv12;
+    double c12,c6,rcsq, rsq, rm6, rm2;
     /* zero energy and forces */
     sys->epot=0.0;
     azzero(sys->fx,sys->natoms);
@@ -45,15 +45,15 @@ void force(mdsys_t *sys)
             /* compute force and energy if within cutoff */
            if (rsq < rcsq) {
                 //remove the expensive pow() and division functions from the inner loop
-                double r6,rinv; rinv=1.0/rsq; r6=rinv*rinv*rinv;
-                ffac = (12.0*c12*r6 - 6.0*c6)*r6*rinv;
-                sys->epot += r6*(c12*r6 - c6);
+                double rm6,rm2; rm2=1.0/rsq; rm6=rm2*rm2*rm2;
+                ffac = (12.0*c12*rm6 - 6.0*c6)*rm6*rm2;
+                sys->epot += rm6*(c12*rm6 - c6); //here it is not necessary to multiply by 0.5, since the force is computed once for each pair of particles
 
                 /*ffac = -4.0*sys->epsilon*(-12.0*pow(sys->sigma/r,12.0)/r
                                          +6*pow(sys->sigma/r,6.0)/r);
 
                 sys->epot += 0.5*4.0*sys->epsilon*(pow(sys->sigma/r,12.0)
-                                               -pow(sys->sigma/r,6.0));
+                                               -pow(sys->sigma/r,6.0)); //here it is necessary to multiply by 0.5, since the force is computed twice for each pair of particles
                 */
                 sys->fx[i] += rx*ffac; // remove division based on previous changes
                 sys->fy[i] += ry*ffac;
