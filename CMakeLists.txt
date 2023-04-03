@@ -42,3 +42,4 @@ add_custom_target(check
 enable_testing()
 
 add_subdirectory(test)
+
