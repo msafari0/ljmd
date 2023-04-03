@@ -40,22 +40,24 @@ TEST(FirstVelVerlet, ComputeHalfTimeStep) {
 
 	/* propagate system with half step velocity verlet */
     velverlet_first_half(&sys);
+	
 
+	double abs_err = 1e-10;
 	/* check that positions have been updated correctly */
-	EXPECT_FLOAT_EQ(sys.rx[0], 7.570545) 	<< "rx[0] is not correct";
-	EXPECT_FLOAT_EQ(sys.ry[0], -22.429455) 	<< "ry[0] is not correct";
-	EXPECT_FLOAT_EQ(sys.rz[0], -5.570545)	<< "rz[0] is not correct";
-	EXPECT_FLOAT_EQ(sys.rx[1], 15.500000)  	<< "rx[1] is not correct";
-	EXPECT_FLOAT_EQ(sys.ry[1], 24.429455)  	<< "ry[1] is not correct";
-	EXPECT_FLOAT_EQ(sys.rz[1], -25.282182) 	<< "rz[1] is not correct";
+	EXPECT_NEAR(sys.rx[0], 7.5705454545, abs_err) 	 	<< "rx[0] is not correct";
+	EXPECT_NEAR(sys.ry[0], -22.4294545455, abs_err)  	<< "ry[0] is not correct";
+	EXPECT_NEAR(sys.rz[0], -5.5705454545, abs_err) 		<< "rz[0] is not correct";
+	EXPECT_NEAR(sys.rx[1], 15.5000000000, abs_err)   	<< "rx[1] is not correct";
+	EXPECT_NEAR(sys.ry[1], 24.4294545455, abs_err)   	<< "ry[1] is not correct";
+	EXPECT_NEAR(sys.rz[1], -25.2821818180, abs_err)  	<< "rz[1] is not correct";
 
 	/* check that velocities have been updated correctly */
-	EXPECT_FLOAT_EQ(sys.vx[0], 3.285273) 	<< "vx[0] is not correct";
-	EXPECT_FLOAT_EQ(sys.vy[0], -11.714727) 	<< "vy[0] is not correct";
-	EXPECT_FLOAT_EQ(sys.vz[0], -3.285273)  	<< "vz[0] is not correct";
-	EXPECT_FLOAT_EQ(sys.vx[1], 6.000000) 	<< "vx[1] is not correct";
-	EXPECT_FLOAT_EQ(sys.vy[1], 11.714727) 	<< "vy[1] is not correct";
-	EXPECT_FLOAT_EQ(sys.vz[1], -13.141091) 	<< "vz[1] is not correct";
+	EXPECT_NEAR(sys.vx[0], 3.2852727273, abs_err) 		<< "vx[0] is not correct";
+	EXPECT_NEAR(sys.vy[0], -11.7147272727, abs_err) 	<< "vy[0] is not correct";
+	EXPECT_NEAR(sys.vz[0], -3.2852727273, abs_err)  	<< "vz[0] is not correct";
+	EXPECT_NEAR(sys.vx[1], 6.0000000000, abs_err) 		<< "vx[1] is not correct";
+	EXPECT_NEAR(sys.vy[1], 11.7147272727, abs_err) 		<< "vy[1] is not correct";
+	EXPECT_NEAR(sys.vz[1], -13.1410909090, abs_err) 	<< "vz[1] is not correct";
 
 }
 
