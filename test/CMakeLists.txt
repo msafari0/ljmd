@@ -7,7 +7,7 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 set(BUILD_GMOCK OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(gtest)
 
-add_executable(unit_tests kinetic_energy.cpp utilities.cpp)
+add_executable(unit_tests kinetic_energy.cpp first_velverlet.cpp utilities.cpp)
 
 target_link_libraries(unit_tests PRIVATE mdlib gtest_main)
 

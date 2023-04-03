@@ -2,7 +2,8 @@
 
 
 /* first part: propagate velocities by half and positions by full step */
-static void velverlet_first_half(mdsys_t *sys)
+// NB: not static since we need to call it from the test
+void velverlet_first_half(mdsys_t *sys)
 {
     int i;
     for (i=0; i<sys->natoms; ++i) {
