@@ -17,11 +17,3 @@ gtest_discover_tests(unit_tests PROPERTIES
     LABELS "unit"
   DISCOVERY_TIMEOUT  # how long to wait (in seconds) before crashing
     240)
-
-
-# automatic discovery of unit tests
-include(GoogleTest)
-gtest_discover_tests(unit_tests PROPERTIES
-    LABELS "unit"
-  DISCOVERY_TIMEOUT  # how long to wait (in seconds) before crashing
-    240)
