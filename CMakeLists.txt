@@ -1,12 +1,7 @@
 # CMake build for P2.1 code
 cmake_minimum_required(VERSION 3.10)
-project(ljmd VERSION 1.0 LANGUAGES C) 
+project(ljmd VERSION 1.0 LANGUAGES C CXX) 
 set(CMAKE_BUILD_TYPE RelWithDebInfo Release) 
-
-
-# COMPILER
-set(CMAKE_C_COMPILER gcc)
-
 
 # Add executable 
 add_executable(ljmd-serial.x src/ljmd.c)
@@ -44,3 +39,6 @@ add_custom_target(check
     COMMAND ${CMAKE_MAKE_PROGRAM} -C examples check_example
 )
 
+enable_testing()
+
+add_subdirectory(test)
