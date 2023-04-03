@@ -22,8 +22,8 @@ TEST(forces2, force) {
     sys.fx[1] = 0.0;
     sys.fy[0] = 0.0;
     sys.fy[1] = 0.0;
-    sys.fz[0] = -39.983635854;
-    sys.fz[1] = 39.983635854;
+    sys.fz[0] = 0.0;
+    sys.fz[1] = 0.0;
     sys.mass = 39.948;
     sys.epsilon = 0.2379;
     sys.sigma = 3.405;
@@ -34,7 +34,7 @@ TEST(forces2, force) {
     EXPECT_EQ(0.0, sys.fx[1]);
     EXPECT_EQ(0.0, sys.fy[0]);
     EXPECT_EQ(0.0, sys.fy[1]);
-    EXPECT_NE(-39.983635854, sys.fz[0]);
-    EXPECT_NE(39.983635854, sys.fz[1]);
+    EXPECT_DOUBLE_EQ(-13.32787861802134, sys.fz[0]);
+    EXPECT_DOUBLE_EQ(13.32787861802134, sys.fz[1]);
 }
 //test forces.c for the function force, which is used to compute the forces on each atom of a system of 3 atoms
