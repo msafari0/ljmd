@@ -6,7 +6,7 @@ set(CMAKE_BUILD_TYPE RelWithDebInfo Release)
 # Add executable 
 add_executable(ljmd-serial.x src/ljmd.c)
 # compile options
-target_compile_options(ljmd-serial.x PRIVATE -Wall -g -O3 -ffast-math -fomit-frame-pointer -DLJMD_VERSION=1.0)
+target_compile_options(ljmd-serial.x PRIVATE -O3 -ffast-math -fomit-frame-pointer -DLJMD_VERSION=1.0) # remve -g for benchmarking
 # include directory for header files
 include_directories(include)
 
