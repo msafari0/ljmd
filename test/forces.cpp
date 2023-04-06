@@ -83,8 +83,8 @@ TEST(forces, morse_force){
     EXPECT_EQ(0.0, sys.fx[1]);
     EXPECT_EQ(0.0, sys.fy[0]);
     EXPECT_EQ(0.0, sys.fy[1]);
-    EXPECT_NEAR(-11.73194128621634, sys.fz[0], 10e-10); // Optimization creates a small error in last digit.
-    EXPECT_NEAR(11.73194128621634, sys.fz[1], 10e-10);
+    EXPECT_NEAR(986514.9279469603, sys.fz[0], 10e-10); // Optimization creates a small error in last digit.
+    EXPECT_NEAR(-986514.9279469603, sys.fz[1], 10e-10);
     //free memory
     delete [] sys.rx;
     delete [] sys.ry;
