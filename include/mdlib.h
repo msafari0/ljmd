@@ -20,6 +20,7 @@ struct _mdsys {
     double *rx, *ry, *rz;
     double *vx, *vy, *vz;
     double *fx, *fy, *fz;
+    // flag and parameters for morse potential: 0 = Lennard-Jones, 1 = Morse
     int fflag;
 };
 typedef struct _mdsys mdsys_t;

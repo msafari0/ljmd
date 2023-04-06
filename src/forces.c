@@ -75,12 +75,9 @@ void morse_force(mdsys_t *sys)
     On the other hand, there is a pair potential:
     V(r) = 2.0*D*a*(1.0-exp(-a*(r-r0)))*exp(-a*(r-r0)); r0=1.5, D=1.0, a=1.0
     */
-    double D,a,r0,rcut;
+    double a, r0,rcut, D;
     double rx,ry,rz;
     int i,j;
-    r0 = 1.5;
-    D = 1.0;
-    a = 1.0;
     /* zero energy and forces */
     sys->epot=0.0;
     azzero(sys->fx,sys->natoms);
@@ -89,6 +86,9 @@ void morse_force(mdsys_t *sys)
 
     //rcsq=sys->rcut*sys->rcut; //square of the cutoff radius
     rcut = sys->rcut;
+    D = sys->epsilon;
+    r0 = sys->sigma*pow(2.0,1.0/6.0);
+    a = 2.0;
     for(i=0; i < (sys->natoms); ++i) {
         for(j=i+1; j < (sys->natoms); ++j) { // The original code was j=0, which means that the force on particle i was computed twice. This is fixed by starting the loop at j=i+1
 
@@ -104,12 +104,12 @@ void morse_force(mdsys_t *sys)
             /* compute force and energy if within cutoff */
            if (r < rcut) {
                 /*force between 2 atoms */    
-                //double ffac = -2.0*D*a*(1.0-exp(-a*(r-sys->sigma)))*exp(-a*(r-sys->sigma))/r;
-               /*morse force pair wise*/
-                double ffac = -D*(1.0-exp(-a*(r-sys->sigma)))*(1.0-exp(-a*(r-sys->sigma)))*(-2.0*a*exp(-a*(r-sys->sigma))+2.0*a)/r;
+                //double ffac = -2.0*D*a*(1.0-exp(-a*(r-r0)))*exp(-a*(r-r0))/r;
+               /*morse force pair wise: smooth version based on formulas in https://docs.lammps.org/pair_morse.html*/
+                double ffac = D*(exp(-2.0*a*(r-r0))-2.0*exp(-a*(r-r0))) - D*(exp(-2.0*a*(rcut-r0))-2.0*exp(-a*(rcut-r0))) - (r - rcut)*(-2.0*a*D*exp(-2.0*a*(rcut-r0))+2.0*D*a*exp(-a*(rcut-r0)));
+                /*morse energy pair wise*/        
+                sys->epot +=  D*(exp(-2.0*a*(r-r0))-2.0*exp(-a*(r-r0)));
                 
-                sys->epot -= D*(1.0-exp(-a*(r-sys->sigma)))*(1.0-exp(-a*(r-sys->sigma))); //here it is not necessary to multiply by 0.5, since the force is computed once for each pair of particles
-
                 sys->fx[i] += rx*ffac; // remove division based on previous changes
                 sys->fy[i] += ry*ffac;
                 sys->fz[i] += rz*ffac;

@@ -29,6 +29,7 @@ TEST(forceslj, force) {
     sys.sigma = 3.405;
     sys.rcut = 8.5;
     sys.box = 17.1580;
+    sys.fflag = 0;
 
     force(&sys);
     EXPECT_EQ(0.0, sys.fx[0]);
@@ -50,7 +51,6 @@ TEST(forceslj, force) {
 
 TEST(forces, morse_force){
     mdsys_t sys;
-    double De;
     double a;
     sys.natoms = 2;
     sys.rx = new double[2];
@@ -71,15 +71,20 @@ TEST(forces, morse_force){
     sys.fy[1] = 0.0;
     sys.fz[0] = 0.0;
     sys.fz[1] = 0.0;
-    De = 1.0;
-    a = 1.0;
+    sys.fflag = 1;
+    sys.mass = 39.948;
+    sys.epsilon = 0.2379;
+    sys.sigma = 3.405;
+    sys.rcut = 8.5;
+    sys.box = 17.1580;
+    a = 2.0;
     morse_force(&sys);
     EXPECT_EQ(0.0, sys.fx[0]);
     EXPECT_EQ(0.0, sys.fx[1]);
     EXPECT_EQ(0.0, sys.fy[0]);
     EXPECT_EQ(0.0, sys.fy[1]);
-    EXPECT_NEAR(-0.000000000000000, sys.fz[0], 10e-10); // Optimization creates a small error in last digit.
-    EXPECT_NEAR(0.000000000000000, sys.fz[1], 10e-10);
+    EXPECT_NEAR(-11.73194128621634, sys.fz[0], 10e-10); // Optimization creates a small error in last digit.
+    EXPECT_NEAR(11.73194128621634, sys.fz[1], 10e-10);
     //free memory
     delete [] sys.rx;
     delete [] sys.ry;
