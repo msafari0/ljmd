@@ -13,6 +13,7 @@ TEST(Utilities, AzzeroArray) {
 	ASSERT_DOUBLE_EQ(arr[0], 0.0);
 	ASSERT_DOUBLE_EQ(arr[1], 0.0);
 	ASSERT_DOUBLE_EQ(arr[2], 0.0);
+	delete [] arr;
 }
 
 TEST(Utilities, WallClock) {

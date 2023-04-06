@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <mdlib.h>
 
-int readinput (mdsys_t *sys, int * nprint, char restfile[BLEN], char trajfile[BLEN], char ergfile[BLEN]) {
+int readinput (mdsys_t *sys, int * nprint, char restfile[BLEN], char trajfile[BLEN], char ergfile[BLEN], int fflag) {
 
     char line[BLEN];
     /* read input file */
@@ -26,6 +26,8 @@ int readinput (mdsys_t *sys, int * nprint, char restfile[BLEN], char trajfile[BL
     sys->dt=atof(line);
     if(get_a_line(stdin,line)) return 1;
     *nprint=atoi(line);
+    if(get_a_line(stdin,line)) return 1;
+    sys->fflag=atoi(line);
 
     return 0;
 }

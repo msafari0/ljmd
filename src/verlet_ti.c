@@ -35,7 +35,16 @@ void velverlet(mdsys_t *sys)
     /* first part: propagate velocities by half and positions by full step */
     velverlet_first_half(sys);
     /* compute forces and potential energy */
+    if (sys->fflag == 0 || !sys->fflag){
     force(sys);
+    }
+    else if (sys->fflag == 1){
+    morse_force(sys);
+    }
+    else{
+    printf("Error: Force flag not recognized, fflag must be 0 or 1 \n");
+    }
+
     /* second part: propagate velocities by another half step */
     velverlet_second_half(sys);
 }

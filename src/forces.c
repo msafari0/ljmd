@@ -10,8 +10,7 @@ static double pbc(double x, const double boxby2)
     return x;
 }
 
-
-/* compute forces */
+/* compute forces based on Lenard Jones potential */
 void force(mdsys_t *sys)
 {
     double r,ffac;
@@ -29,6 +28,7 @@ void force(mdsys_t *sys)
     c12=4.0*sys->epsilon*pow(sys->sigma,12.0); //c12 is the 12th power of sigma
     c6 =4.0*sys->epsilon*pow(sys->sigma, 6.0); //c6 is the 6th power of sigma
     rcsq=sys->rcut*sys->rcut; //square of the cutoff radius
+
 
     for(i=0; i < (sys->natoms); ++i) {
         for(j=i+1; j < (sys->natoms); ++j) { // The original code was j=0, which means that the force on particle i was computed twice. This is fixed by starting the loop at j=i+1
@@ -55,6 +55,61 @@ void force(mdsys_t *sys)
                 sys->epot += 0.5*4.0*sys->epsilon*(pow(sys->sigma/r,12.0)
                                                -pow(sys->sigma/r,6.0)); //here it is necessary to multiply by 0.5, since the force is computed twice for each pair of particles
                 */
+                sys->fx[i] += rx*ffac; // remove division based on previous changes
+                sys->fy[i] += ry*ffac;
+                sys->fz[i] += rz*ffac;
+                // The following lines are added to the original code to consider the force on the other particle and implement Newton's third law
+                sys->fx[j] -= rx*ffac;  // remove division ...
+                sys->fy[j] -= ry*ffac;
+                sys->fz[j] -= rz*ffac;
+            }
+        }
+    }
+}
+
+/*compute force based on morse potential*/
+void morse_force(mdsys_t *sys)
+{
+    /*compute force based on morse potential with cutoff for bond:
+    V(r) = D*(1-exp(-a*(r-r0)))^2; r0=1.5, D=1.0, a=1.0
+    On the other hand, there is a pair potential:
+    V(r) = 2.0*D*a*(1.0-exp(-a*(r-r0)))*exp(-a*(r-r0)); r0=1.5, D=1.0, a=1.0
+    */
+    double D,a,r0,rcut;
+    double rx,ry,rz;
+    int i,j;
+    r0 = 1.5;
+    D = 1.0;
+    a = 1.0;
+    /* zero energy and forces */
+    sys->epot=0.0;
+    azzero(sys->fx,sys->natoms);
+    azzero(sys->fy,sys->natoms);
+    azzero(sys->fz,sys->natoms);
+
+    //rcsq=sys->rcut*sys->rcut; //square of the cutoff radius
+    rcut = sys->rcut;
+    for(i=0; i < (sys->natoms); ++i) {
+        for(j=i+1; j < (sys->natoms); ++j) { // The original code was j=0, which means that the force on particle i was computed twice. This is fixed by starting the loop at j=i+1
+
+            /* particles have no interactions with themselves */
+           // if (i==j) continue; //it will be useless, since j starts from i+1
+
+            /* get distance between particle i and j */
+            rx=pbc(sys->rx[i] - sys->rx[j], 0.5*sys->box);
+            ry=pbc(sys->ry[i] - sys->ry[j], 0.5*sys->box);
+            rz=pbc(sys->rz[i] - sys->rz[j], 0.5*sys->box);
+            double r = sqrt(rx*rx + ry*ry + rz*rz);  //remove the expensive sqrt() function from the inner loop
+
+            /* compute force and energy if within cutoff */
+           if (r < rcut) {
+                /*force between 2 atoms */    
+                //double ffac = -2.0*D*a*(1.0-exp(-a*(r-sys->sigma)))*exp(-a*(r-sys->sigma))/r;
+               /*morse force pair wise*/
+                double ffac = -D*(1.0-exp(-a*(r-sys->sigma)))*(1.0-exp(-a*(r-sys->sigma)))*(-2.0*a*exp(-a*(r-sys->sigma))+2.0*a)/r;
+                
+                sys->epot -= D*(1.0-exp(-a*(r-sys->sigma)))*(1.0-exp(-a*(r-sys->sigma))); //here it is not necessary to multiply by 0.5, since the force is computed once for each pair of particles
+
                 sys->fx[i] += rx*ffac; // remove division based on previous changes
                 sys->fy[i] += ry*ffac;
                 sys->fz[i] += rz*ffac;

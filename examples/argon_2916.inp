@@ -10,3 +10,4 @@ argon_2916.dat    # energies
 1000              # nr MD steps
 5.0               # MD time step (in fs)
 10                # output print frequency
+0                 # force flag 0: lj and 1: morse
