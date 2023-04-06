@@ -112,6 +112,7 @@ void morse_force(mdsys_t *sys)
         
                 /*morse energy pair wise*/  
                 sys->epot = D * (dexp*dexp - 2.0*dexp) - phi_rcut;  // the energy at the cutoff radius is subtracted to avoid double counting
+                dr = rcut - r;  // redefine dr, since the energy at the cutoff radius is subtracted
                 sys->epot += dr * der_at_cutoff; //adding the energy at the cutoff radius to the energy at the current distance
                 
                 sys->fx[i] += rx*ffac; // remove division based on previous changes
