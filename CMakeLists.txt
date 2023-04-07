@@ -11,7 +11,7 @@ target_compile_options(ljmd-serial.x PRIVATE -O3 -ffast-math -fomit-frame-pointe
 include_directories(include)
 
 # add library for force computation
-add_library(mdlib src/utilities.c src/verlet_ti.c src/forces.c src/energies.c src/input.c src/output.c)
+add_library(mdlib src/utilities.c src/verlet_ti.c src/forces.c src/energies.c src/input.c src/output.c src/reading.c)
 target_link_libraries(mdlib m)
 
 # link libraries
