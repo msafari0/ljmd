@@ -1,4 +1,4 @@
-# Report on implementation of Morse potential as an interatomic potential in the system of Argon.
+## Report on implementation of Morse potential as an interatomic potential in the system of Argon.
 date: 03/04/2023 - 07/04/2023
 student: Mandana Safari
 
