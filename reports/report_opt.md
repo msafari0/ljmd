@@ -2,20 +2,19 @@
 date: 03/04/2023 - 07/04/2023
 student: Mandana Safari
 
-
 The relative repositoy is : [the optimization branch](https://github.com/Project-MD-GPS/ljmd/tree/optimization)
 
 ## Introduction:
-The purpose of this report is to discuss the implementation of force optimization and the reduction of expensive operators in optimizing 
-and parallelizing Molecular dynamic code with lenard jones potential. 
-The goal of the project was to improve the performance of the code by optimizing it for parallel processing and reducing the computational
-time required for each simulation. In this report, I will discuss the individual task of implementing force optimization and reducing the 
-computational time by implementing the third law of newton.
+The purpose of this report is to discuss the implementation of force optimization and the reduction of expensive
+operators in optimizing and parallelizing Molecular dynamic code with lenard jones potential. 
+The goal of the project was to improve the performance of the code by optimizing it for parallel processing  and 
+reducing the computational time required for each simulation. In this report, I will discuss the individual task 
+of implementing force optimization and reducing the  computational time by implementing the third law of newton.
 
 ## Methodology:
-In this project, our group worked on optimizing and parallelizing Molecular dynamic code governed by lenard jones potential.
- My individual task was to optimize the force computation: including refactorization the code for better optimization and to avoid costly
-operations or redundant work. Adapt data structures as needed. 
+In this project, our group worked on optimizing and parallelizing Molecular dynamic code governed by lenard jones
+potential. My individual task was to optimize the force computation: including refactorization the code for better 
+optimization and to avoid costly operations or redundant work. Adapt data structures as needed. 
 First, I implementted the third law of newton:
 
 ```static void force(mdsys_t *sys)
@@ -49,15 +48,17 @@ First, I implementted the third law of newton:
             }
         }
     }
-}```
+}
+````
 
-The original code was j=0, which means that the force on particle i was computed twice, then we needed a 0.5 coefficient in potential part.
-This is fixed by starting the loop at j=i+1, and removing the coefficient.  The third law of newton states that for every action, there is
-an equal and opposite reaction. Therefore, when two atoms interact, the force exerted on one atom is equal in magnitude but opposite in 
-direction to the force exerted on the other atom. This is implementted with considering negative force components of J atoms at the end.
+The original code was j=0, which means that the force on  particle i was computed  twice,  then we needed a 0.5
+coefficient in potential part. This is fixed by starting the loop at j=i+1, and removing the coefficient.  The
+third law of newton states that for every action, there is an equal and opposite reaction. Therefore, when two 
+atoms interact, the force exerted on one atom is equal in magnitude but opposite in  direction  to  the  force
+exerted on the other atom. This is implementted with considering negative force components of J atoms at the end.
 
-I also reduced the computational time by avoiding expensive operators like power and square roots. Instead, I used precomputed variables
-to calculate these values, resulting in a further reduction in computational time.
+I also reduced the computational time by avoiding expensive operators like power and square roots. Instead, I 
+used precomputed variablesto calculate these values, resulting in a further reduction in computational time.
 
 ```void force(mdsys_t *sys)
 {
@@ -102,14 +103,14 @@ to calculate these values, resulting in a further reduction in computational tim
             }
         }
     }
-}```
+}
+````
 
 Which is mostly by adding variables inwhich costly operations are precomputed once before loop. 
 
 ## Results:
-After implementing force optimization and reducing the computational time by implementing the third law of newton and avoiding 
-costly operations, I was able to achieve about 3 times speedup in total. 
-
+After implementing force optimization and reducing the computational time by implementing the third law of
+newton and avoiding costly operations, I was able to achieve about 3 times speedup in total. 
 
 | code type      | size | time     | speedup |
 |:--------------:|:----:|:--------:|:-------:|
@@ -121,9 +122,10 @@ costly operations, I was able to achieve about 3 times speedup in total.
 | force + OP opt | 2916 | 147.796s |  1.99   |
 
                    
-As we can see, with scaling the size of the system, effects of force and operations optimization are reduced, due to increasing 
-the number of calculation between pairs.
+As we can see, with scaling the size of the system, effects  of  force  and  operations  optimization are 
+reduced, due to increasing  the number of calculation between pairs.
 
 ## Conclusion:
-In conclusion, implementing force optimization and reducing the computational time by implementing the third law of newton and 
-avoiding expensive operators have improved the performance of the Molecular dynamic code about 3 times. 
+In conclusion, implementing force optimization and reducing the computational time  by  implementing  the
+third law of newton and  avoiding expensive operators have  improved  the  performance  of the  Molecular 
+dynamic code about 3 times. 
