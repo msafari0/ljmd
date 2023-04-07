@@ -2,6 +2,9 @@
 date: 03/04/2023 - 07/04/2023
 student: Mandana Safari
 
+
+The relative repositoy is : [the optimization branch](https://github.com/Project-MD-GPS/ljmd/tree/optimization)
+
 ## Introduction:
 The purpose of this report is to discuss the implementation of force optimization and the reduction of expensive operators in optimizing 
 and parallelizing Molecular dynamic code with lenard jones potential. 
@@ -107,14 +110,16 @@ Which is mostly by adding variables inwhich costly operations are precomputed on
 After implementing force optimization and reducing the computational time by implementing the third law of newton and avoiding 
 costly operations, I was able to achieve about 3 times speedup in total. 
 
-                   | code type      | size | time     | speedup |
-                   | ---------------|------|----------|---------|
-                   | vanilla        | 108  | 1.562s   |  ....   |
-                   | only force     | 108  | 0.793s   |  1.97   |
-                   | force + OP opt | 108  | 0.523s   |  2.98   |
-                   | vanilla        | 2916 | 294.744s |  ....   |
-                   | only force     | 2916 | 143.956s |  2.04   |
-                   | force + OP opt | 2916 | 147.796s |  1.99   |
+
+| code type      | size | time     | speedup |
+|:--------------:|:----:|:--------:|:-------:|
+| vanilla        | 108  | 1.562s   |  ....   |
+| only force     | 108  | 0.793s   |  1.97   |
+| force + OP opt | 108  | 0.523s   |  2.98   |
+| vanilla        | 2916 | 294.744s |  ....   |
+| only force     | 2916 | 143.956s |  2.04   |
+| force + OP opt | 2916 | 147.796s |  1.99   |
+
                    
 As we can see, with scaling the size of the system, effects of force and operations optimization are reduced, due to increasing 
 the number of calculation between pairs.
