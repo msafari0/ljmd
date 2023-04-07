@@ -5,26 +5,32 @@ student: Mandana Safari
 The relative repositoy is : [the optim+morse branch](https://github.com/Project-MD-GPS/ljmd/tree/optim+morse) 
 
 ## Introduction:
-The purpose of this report is to discuss the implementation of Morse potential as an interatomic potential in the system of Argon.
-The goal of the project was to understand the behavior of Argon atoms and molecules in different forces by simulating their interactions (here using Morse potential).
+The purpose of this report is to discuss the implementation of Morse potential as  an interatomic potential
+in the system of Argon. The goal of the project was to understand the behavior of Argon atoms and molecules
+in different forces by simulating their interactions (here using Morse potential).
 In this report, I will discuss the implementation process and the results obtained from the simulations.
 
 ## Background:
-Morse potential is an interatomic potential that is used to describe the interactions between atoms and molecules as Van del Waals interactions. It is a more accurate model 
-than other potentials like the lenard jones potential, as it takes into account the anharmonicity of the interatomic interactions. Therefore, it is more used in various
-scientific fields like physics, chemistry, and materials science.
+Morse potential is an interatomic potential that is used to describe the interactions   between  atoms  and 
+molecules as Van del Waals interactions. It is a more accurate model than other potentials like the  lenard
+jones potential, as it takes into account the anharmonicity of the  interatomic interactions. Therefore, it 
+is more used in various scientific fields like physics, chemistry, and materials science.
 
 ## Methodology:
- The implementation process involved considering a shift in potential energy in a way that energy and force at cutoff becomes zero. There are three parameters for Morse
- potential energy, which can be derived from lenard jones constant as well.
+ The implementation process involved considering a shift in potential energy in a way that energy and force
+ at cutoff becomes zero. There are three parameters for Morse potential energy, which can be  derived  from 
+ lenard jones constant as well.
 
-To implement Morse potential, I am adding to the existing Molecular dynamic code to include the Morse potential equations for calculating the energy and force between atoms
-by considering a force flag `fflag` in input file `argon_108.inp`. I considered 0 for lenard jones potential and 1 for Morse potential. In this way, we can compile once and
-based on needs use different force fields.
+To implement Morse potential, I am adding to  the existing  molecular  dynamic  code to  include  the Morse 
+potential equations for calculating the energy and force between atoms by considering a force flag `fflag` 
+in input file `argon_108.inp`. I considered 0 for lenard jones potential and 1 for Morse potential. In this
+way, we can compile once and based on needs use different force fields.
 We also added a shift in potential energy to ensure that the energy and force at cutoff became zero.
-Morse potential is called by this formula: `V(r) = D*(1-exp(-a*(r-r0)))^2`. Although this version is used for investigation of bond features, here I used the smooth version:
-`V(r) = D * (exp(-a*dr)*exp(-a*dr) - 2.0*exp(-a*dr)) - phi_rcut`. This formula comes from taylor expantion of `phi = D * (exp(-a*dr)*exp(-a*dr) - 2.0*exp(-a*dr))` around r_cut.
-(Explanation based on https://docs.lammps.org/pair_morse.html)
+Morse potential is called by this formula: `V(r) = D*(1-exp(-a*(r-r0)))^2`. Although this version  is  used
+for investigation of bond features, here I used the smooth version:
+`V(r) = D * (exp(-a*dr)*exp(-a*dr) - 2.0*exp(-a*dr)) - phi_rcut`. This formula comes from taylor  expantion
+of `phi = D * (exp(-a*dr)*exp(-a*dr) - 2.0*exp(-a*dr))` around r_cut.
+(Explanation based on [lammps pair_style morse/smooth](https://docs.lammps.org/pair_morse.html)
 
 
 
@@ -77,18 +83,22 @@ Morse potential is called by this formula: `V(r) = D*(1-exp(-a*(r-r0)))^2`. Alth
             }
         }
     }
-} ```
+}
+````
 
 The gtest fucntion was coded accordingly.
 
-
 ## Results:
-The Morse potential was a more accurate model than lenard jones potential, as it took into account the anharmonicity of the interatomic interactions.
-It needs some consideration based of taylor expantion and a shift in energy and force. Without the shift, the simulations showed that the system was unstable,
-and the atoms and molecules were not able to maintain their positions. However, with the shift, the system was stable, and the atoms and molecules were able to 
+The Morse potential was a more accurate model than lenard jones potential, as it took  into  account  the 
+anharmonicity of the interatomic interactions.
+It needs some consideration based of taylor expantion and a shift in energy and force. Without  the  shift,
+the simulations showed that the system was unstable, and the atoms and molecules were not able to maintain
+their positions. However, with the shift, the system was stable, and the atoms and molecules were  able to 
 maintain their positions.
 
 ## Conclusion:
-The simulations showed that Morse potential is a more accurate model than lenard jones potential, as it takes into account the anharmonicity of 
-the interatomic interactions.The shift in potential energy is also essential for ensuring the stability of the system. This project has provided 
-us with valuable insights into the behavior of atoms and molecules, which can be used to develop more accurate models for simulating their interactions.
+The simulations showed that Morse potential is a more accurate model than lenard jones  potential,  as  it
+takes into account the anharmonicity of  the interatomic interactions.The shift  in  potential  energy  is 
+also essential for ensuring the stability of  the system. This  project  has  provided  us  with  valuable 
+insights into the behavior of atoms and molecules, which can be used to develop more accurate  models  for
+simulating their interactions.
