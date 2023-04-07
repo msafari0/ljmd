@@ -18,5 +18,9 @@ TEST(KineticEnergy, ComputeKE) {
 	sys.vz[1] = 20.7;
 	ekin(&sys);
 	ASSERT_DOUBLE_EQ(sys.ekin, 38327260.75777286);
+	//free memory
+	delete [] sys.vx;
+	delete [] sys.vy;
+	delete [] sys.vz;
 }
 

@@ -7,10 +7,12 @@ set(CMAKE_BUILD_TYPE RelWithDebInfo Release)
 add_executable(ljmd-serial.x src/ljmd.c)
 # compile options
 target_compile_options(ljmd-serial.x PRIVATE -O3 -ffast-math -fomit-frame-pointer -DLJMD_VERSION=1.0) # remve -g for benchmarking
+
 # include directory for header files
 include_directories(include)
 
 # add library for force computation
+#add_library(mdlib src/utilities.c src/verlet_ti.c src/forces3d.c src/energies.c src/input.c src/output.c src/reading.c)
 add_library(mdlib src/utilities.c src/verlet_ti.c src/forces.c src/energies.c src/input.c src/output.c src/reading.c)
 target_link_libraries(mdlib m)
 

@@ -20,11 +20,14 @@ struct _mdsys {
     double *rx, *ry, *rz;
     double *vx, *vy, *vz;
     double *fx, *fy, *fz;
+    // flag and parameters for morse potential: 0 = Lennard-Jones, 1 = Morse
+    int fflag;
 };
 typedef struct _mdsys mdsys_t;
 
 // compute forces
 void force(mdsys_t *sys);
+void morse_force(mdsys_t *sys);
 // compute kinetic energy
 void ekin(mdsys_t *sys);
 // velocity verlet
@@ -39,7 +42,7 @@ int get_a_line(FILE *fp, char *buf);
 // output function
 void output(mdsys_t *sys, FILE *erg, FILE *traj);
 // reading files
-int readinput (mdsys_t *sys, int * nprint, char restfile[BLEN], char trajfile[BLEN], char ergfile[BLEN]);
+int readinput (mdsys_t *sys, int * nprint, char restfile[BLEN], char trajfile[BLEN], char ergfile[BLEN], int fflag);
 int readrest (mdsys_t *sys, char restfile[BLEN]);
 
 #endif

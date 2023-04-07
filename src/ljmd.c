@@ -23,7 +23,7 @@ int main(int argc, char **argv)
     t_start = wallclock();
 
     /* read input file */
-    return_value = readinput(&sys, &nprint, restfile, trajfile, ergfile);
+    return_value = readinput(&sys, &nprint, restfile, trajfile, ergfile, sys.fflag);
     if (return_value != 0) {
         printf("Error reading input file\n");
         return return_value;
@@ -52,7 +52,17 @@ int main(int argc, char **argv)
 
     /* initialize forces and energies.*/
     sys.nfi=0;
-    force(&sys);
+    if (sys.fflag == 0 || !sys.fflag){
+        force(&sys);
+         }
+    // consider using flag to switch between force and morse_force
+    else if (sys.fflag == 1){
+        morse_force(&sys);
+        } 
+        else{
+            printf("Error: Force flag not recognized, fflag must be 0 or 1\n");
+            return 1;}  
+
     ekin(&sys);
 
     erg=fopen(ergfile,"w");

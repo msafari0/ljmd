@@ -2,7 +2,7 @@
 39.948            # mass in AMU
 0.2379            # epsilon in kcal/mol
 3.405             # sigma in angstrom
-8.5               # rcut in angstrom
+4.5               # rcut in angstrom
 17.1580           # box length (in angstrom)
 argon_108.rest    # restart
 argon_108.xyz     # trajectory
@@ -10,3 +10,4 @@ argon_108.dat     # energies
 1000              # nr MD steps
 5.0               # MD time step (in fs)
 100               # output print frequency
+1                 # force flag 0: lj or 1: morse # the parameters form paper: Mechanical lattice instability and thermodynamical properties in classical solids  October 2011Physical review. B, Condensed matter 84(18) DOI: 10.1103/PhysRevB.84.184305
