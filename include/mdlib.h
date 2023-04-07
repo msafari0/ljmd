@@ -29,6 +29,7 @@ void force(mdsys_t *sys);
 void ekin(mdsys_t *sys);
 // velocity verlet
 void velverlet(mdsys_t *sys);
+void velverlet_first_half(mdsys_t *sys);
 // set vector elements to zero
 void azzero(double *d, const int n);
 // walltime

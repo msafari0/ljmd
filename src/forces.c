@@ -25,7 +25,7 @@ void force(mdsys_t *sys)
     azzero(sys->fz,sys->natoms);
 
     for(i=0; i < (sys->natoms); ++i) {
-        for(j=0; j < (sys->natoms); ++j) {
+        for(j=i+1; j < (sys->natoms); ++j) { // The original code was j=0, which means that the force on particle i was computed twice. This is fixed by starting the loop at j=i+1
 
             /* particles have no interactions with themselves */
             if (i==j) continue;
@@ -47,6 +47,10 @@ void force(mdsys_t *sys)
                 sys->fx[i] += rx/r*ffac;
                 sys->fy[i] += ry/r*ffac;
                 sys->fz[i] += rz/r*ffac;
+                // The following lines are added to the original code to consider the force on the other particle and implement Newton's third law
+                sys->fx[j] -= rx/r*ffac;
+                sys->fy[j] -= ry/r*ffac;
+                sys->fz[j] -= rz/r*ffac;
             }
         }
     }
