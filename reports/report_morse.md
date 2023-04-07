@@ -2,6 +2,8 @@
 date: 03/04/2023 - 07/04/2023
 student: Mandana Safari
 
+The relative repositoy is : [the optim+morse branch](https://github.com/Project-MD-GPS/ljmd/tree/optim+morse) 
+
 ## Introduction:
 The purpose of this report is to discuss the implementation of Morse potential as an interatomic potential in the system of Argon.
 The goal of the project was to understand the behavior of Argon atoms and molecules in different forces by simulating their interactions (here using Morse potential).
